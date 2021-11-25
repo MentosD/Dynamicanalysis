@@ -1,0 +1,23 @@
+%使用正弦波荷载验证不同时间步长条件下加速度时程峰值误差值
+
+clear all;
+clc;
+close all;
+t1 = 0.001 : 0.001 : 0.001 * 10000;
+F1 = sin(2 * pi * (1/1) * t1);
+figure(1)
+plot(t1 , F1);
+hold on
+
+t2 = 0.001 : 0.01 : 0.01 * 1000;
+F2 = sin(2 * pi * (1/1) * t2);
+plot(t2 , F2);
+
+
+g = tf([-1.45 , 0 , 0] , [1.45 , 0.374 , 1003]);
+L1 = lsim(g , F1 , t1);
+figure(2)
+plot(t1 , L1);
+hold on;
+L2 = lsim(g , F2 , t2);
+plot(t2 , L2);
